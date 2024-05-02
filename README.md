@@ -6,3 +6,15 @@
 - *Developer*: Jonas
 - *Developer*: Rey
 - *Developer*: Larissa
+
+## Requirements:
+- Docker (mit Docker-compose)
+
+## Starten der Anwendung
+```bash
+docker-compose -f compose.yml up
+```
+## Removen der Anwendung
+```bash
+docker-compose -f compose.yml down
+```
