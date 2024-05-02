@@ -1,4 +1,5 @@
 name: Build Backend Image
+permissions: write-all
 
 on:
   push:
