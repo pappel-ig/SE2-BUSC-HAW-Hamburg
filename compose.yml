@@ -18,7 +18,7 @@ services:
     image: mongo
     restart: always
     networks:
-      - public
+      - private
       - mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -35,7 +35,6 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
       ME_CONFIG_BASICAUTH: false
-
 networks:
   public:
   private:
