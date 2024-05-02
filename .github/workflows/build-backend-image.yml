@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: MensaMatch-Backend
+  IMAGE_NAME: mensa-match-backend
 
 jobs:
   build:
