@@ -40,12 +40,9 @@ jobs:
       - build
     steps:
       - uses: actions/checkout@v3
-      - name: Place SSH Key
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< "${{ secrets.USERSHELL_SSH_KEY }}"
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.USERSHELL_SSH_KEY }}
       - name: Build SSH Tunnel
         run: ssh -o StrictHostKeyChecking=no -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
       - name: Set Mongo User env var
