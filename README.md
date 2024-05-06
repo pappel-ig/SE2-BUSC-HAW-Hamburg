@@ -12,9 +12,9 @@
 
 ## Starten der Anwendung
 ```bash
-docker-compose -f compose.yml up
+docker-compose -f composeLocally.yml up
 ```
 ## Removen der Anwendung
 ```bash
-docker-compose -f compose.yml down
+docker-compose -f composeLocally.yml down
 ```

@@ -1,17 +1,16 @@
 services:
   backend:
-    build:
-      context: backend
-      dockerfile: Dockerfile
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
+    image: ghcr.io/jonasmetzger2000/mensa-match-backend:main
     networks:
       - public
       - private
   frontend:
     ports:
       - 8080:80
-    build:
-      context: frontend
-      dockerfile: Dockerfile
+    image: ghcr.io/jonasmetzger2000/mensa-match-frontend:main
     networks:
       - public
   mongo:
@@ -21,8 +20,8 @@ services:
       - private
       - mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
   mongo-express:
     image: mongo-express
     networks:
@@ -31,9 +30,9 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME:?error}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD:?error}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME:?error}:${MONGO_ROOT_PASSWORD:?error}@mongo:27017/
       ME_CONFIG_BASICAUTH: false
 networks:
   public:
