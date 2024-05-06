@@ -37,7 +37,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - build # ghcr.io/jonasmetzger2000/mensa-match-backend:main
+      - build
     steps:
       - uses: actions/checkout@v3
       - name: Place SSH Key
@@ -46,6 +46,7 @@ jobs:
         run: | 
           mkdir ~/.ssh
           echo $SSH_KEY > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
       - name: Build SSH Tunnel
         run: ssh -o StrictHostKeyChecking=no -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
       - name: Set Mongo User env var
