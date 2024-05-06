@@ -47,10 +47,10 @@ jobs:
           mkdir ~/.ssh
           echo $SSH_KEY > ~/.ssh/id_rsa
       - name: Build SSH Tunnel
-        run: ssh -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
+        run: ssh -o StrictHostKeyChecking=no -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
       - name: Set Mongo User env var
-        run: ssh -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }}'
+        run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }}'
       - name: Set Mongo Password env var
-        run: ssh -p 1024 matcher@localhost -f 'export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }}'
+        run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }}'
       - name: Fetch Docker Compose
-        run: ssh -p 1024 matcher@localhost -f 'wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
+        run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
