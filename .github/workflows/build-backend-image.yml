@@ -68,4 +68,6 @@ jobs:
       - name: Apply Docker Compose
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'docker-compose up --force-recreate --build -d -f compose.yml'
+          MONGO_ROOT_USERNAME: ${{ secrets.MONGO_USER }}
+          MONGO_ROOT_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'docker-compose up --force-recreate --build -d compose.yml'
