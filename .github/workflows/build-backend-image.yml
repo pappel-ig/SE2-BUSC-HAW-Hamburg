@@ -40,14 +40,28 @@ jobs:
       - build
     steps:
       - uses: actions/checkout@v3
-      - uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.USERSHELL_SSH_KEY }}
+      - name: Configure SSH Key
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.USERSHELL_SSH_KEY }}" > ~/.ssh/github_actions
+          chmod 600 ~/.ssh/github_actions
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+          ssh-add ~/.ssh/github_actions
       - name: Build SSH Tunnel
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -o StrictHostKeyChecking=no -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
       - name: Set Mongo User env var
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }}'
       - name: Set Mongo Password env var
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }}'
       - name: Fetch Docker Compose
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
