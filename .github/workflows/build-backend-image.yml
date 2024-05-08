@@ -53,19 +53,7 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -L 1024:mensa-match.ful.informatik.haw-hamburg.de:22 infwun391@usershell.informatik.haw-hamburg.de -fN
-      - name: Set Mongo User env var
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }}'
-      - name: Set Mongo Password env var
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }}'
-      - name: Fetch Docker Compose
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'rm compose.yml;wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
       - name: Apply Docker Compose
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }};export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }};docker compose -f compose.yml up --force-recreate --build -d'
+        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }};export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }};./deploy.sh'
