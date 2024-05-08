@@ -9,7 +9,7 @@ services:
       - private
   frontend:
     ports:
-      - 8080:80
+      - 80:80
     image: ghcr.io/jonasmetzger2000/mensa-match-frontend:main
     networks:
       - public
