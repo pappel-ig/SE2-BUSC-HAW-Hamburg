@@ -65,11 +65,7 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
-      - name: Apply Environment Variables
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }};export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }}'
       - name: Apply Docker Compose
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'docker-compose up --force-recreate --build -d compose.yml'
+        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'export MONGO_ROOT_USERNAME=${{ secrets.MONGO_USER }};export MONGO_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }};docker-compose up --force-recreate --build -d compose.yml'
