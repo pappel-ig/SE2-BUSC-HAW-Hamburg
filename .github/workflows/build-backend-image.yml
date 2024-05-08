@@ -64,7 +64,7 @@ jobs:
       - name: Fetch Docker Compose
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
+        run: ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no -p 1024 matcher@localhost -f 'rm compose.yml;wget https://raw.githubusercontent.com/jonasmetzger2000/SE2-BUSC-HAW-Hamburg/main/compose.yml'
       - name: Apply Docker Compose
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
