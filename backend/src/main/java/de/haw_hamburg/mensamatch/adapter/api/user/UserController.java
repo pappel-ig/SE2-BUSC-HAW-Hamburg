@@ -42,7 +42,7 @@ public class UserController {
                 .build();
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Void> register(@Param("username") String username, @Param("username") String password) {
         if (userService.createNewUser(User.builder().username(username).password(passwordEncoder.encode(password)).build())) {
             return ResponseEntity.ok().build();
