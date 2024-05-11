@@ -1,6 +1,6 @@
-package de.haw_hamburg.mensamatch.domain;
+package de.haw_hamburg.mensamatch.domain.meal;
 
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 
 import java.time.LocalDate;
 import java.util.List;

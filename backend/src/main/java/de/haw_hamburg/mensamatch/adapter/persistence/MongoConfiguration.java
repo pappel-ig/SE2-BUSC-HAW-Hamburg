@@ -7,30 +7,15 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.CreateCollectionOptions;
-import de.haw_hamburg.mensamatch.adapter.persistence.model.MealDao;
-import de.haw_hamburg.mensamatch.domain.model.Role;
+import de.haw_hamburg.mensamatch.adapter.persistence.meal.model.MealDao;
+import de.haw_hamburg.mensamatch.adapter.persistence.user.model.UserDao;
 import org.bson.UuidRepresentation;
-import org.bson.codecs.BsonCodecProvider;
-import org.bson.codecs.Codec;
-import org.bson.codecs.EnumCodec;
 import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.jsr310.LocalDateCodec;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.internal.ProvidersCodecRegistry;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
-
-import java.util.List;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
@@ -48,10 +33,6 @@ public class MongoConfiguration {
 
     @Value("${spring.data.mongodb.password}")
     private String password;
-
-    @Value("${spring.data.mongodb.database}")
-    private String database;
-
 
     @Bean
     public MongoClient mongoClient() {
@@ -79,5 +60,11 @@ public class MongoConfiguration {
     public MongoCollection<MealDao> mealCollection(MongoDatabase database) {
         database.createCollection("meals");
         return database.getCollection("meals", MealDao.class);
+    }
+
+    @Bean
+    public MongoCollection<UserDao> userCollection(MongoDatabase database) {
+        database.createCollection("users");
+        return database.getCollection("users", UserDao.class);
     }
 }

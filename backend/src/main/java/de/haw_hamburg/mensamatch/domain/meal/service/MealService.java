@@ -1,10 +1,9 @@
-package de.haw_hamburg.mensamatch.domain.service;
+package de.haw_hamburg.mensamatch.domain.meal.service;
 
-import de.haw_hamburg.mensamatch.domain.MealRepository;
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.domain.meal.MealRepository;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.util.List;

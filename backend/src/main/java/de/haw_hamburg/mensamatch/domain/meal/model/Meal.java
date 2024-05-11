@@ -1,8 +1,7 @@
-package de.haw_hamburg.mensamatch.domain.model;
+package de.haw_hamburg.mensamatch.domain.meal.model;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package de.haw_hamburg.mensamatch.adapter.rest.model;
+package de.haw_hamburg.mensamatch.adapter.rest.meal.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -9,12 +9,12 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class CategoryDto {
+public class DayDto {
 
-    @JacksonXmlProperty(localName = "name", isAttribute = true)
-    String category;
+    @JacksonXmlProperty(localName = "date", isAttribute = true)
+    String date;
 
-    @JacksonXmlElementWrapper(localName = "meal", useWrapping = false)
-    List<MealDto> meal;
+    @JacksonXmlElementWrapper(localName = "category", useWrapping = false)
+    List<CategoryDto> category;
 
 }

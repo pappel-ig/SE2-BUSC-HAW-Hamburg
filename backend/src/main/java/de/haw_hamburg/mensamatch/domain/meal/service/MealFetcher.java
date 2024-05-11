@@ -1,14 +1,13 @@
-package de.haw_hamburg.mensamatch.domain.service;
+package de.haw_hamburg.mensamatch.domain.meal.service;
 
-import de.haw_hamburg.mensamatch.domain.MealRepository;
-import de.haw_hamburg.mensamatch.domain.MensaRepository;
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.domain.meal.MealRepository;
+import de.haw_hamburg.mensamatch.domain.meal.MensaRepository;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service

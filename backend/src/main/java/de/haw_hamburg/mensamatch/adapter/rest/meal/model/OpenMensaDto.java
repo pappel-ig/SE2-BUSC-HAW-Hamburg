@@ -1,8 +1,8 @@
-package de.haw_hamburg.mensamatch.adapter.rest.model;
+package de.haw_hamburg.mensamatch.adapter.rest.meal.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.Getter;
 
 import java.time.LocalDate;

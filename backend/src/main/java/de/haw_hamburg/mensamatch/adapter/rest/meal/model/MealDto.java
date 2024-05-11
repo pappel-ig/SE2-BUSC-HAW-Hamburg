@@ -1,8 +1,8 @@
-package de.haw_hamburg.mensamatch.adapter.rest.model;
+package de.haw_hamburg.mensamatch.adapter.rest.meal.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import de.haw_hamburg.mensamatch.domain.model.Role;
+import de.haw_hamburg.mensamatch.domain.meal.model.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.javamoney.moneta.Money;

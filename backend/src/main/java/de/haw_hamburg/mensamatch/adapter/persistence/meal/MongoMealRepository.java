@@ -1,10 +1,10 @@
-package de.haw_hamburg.mensamatch.adapter.persistence;
+package de.haw_hamburg.mensamatch.adapter.persistence.meal;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import de.haw_hamburg.mensamatch.adapter.persistence.model.MealDao;
-import de.haw_hamburg.mensamatch.domain.MealRepository;
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.adapter.persistence.meal.model.MealDao;
+import de.haw_hamburg.mensamatch.domain.meal.MealRepository;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +23,7 @@ public class MongoMealRepository implements MealRepository {
 
     @Override
     public void store(Meal meal) {
-        if (!(collection.countDocuments(and(eq("category", meal.getCategory()), eq("day", LocalDate.now()))) > 0)) {
+        if (!(collection.countDocuments(and(eq("category", meal.getCategory()), eq("day", meal.getDay()))) > 0)) {
             collection.insertOne(MealDao.from(meal));
         }
     }

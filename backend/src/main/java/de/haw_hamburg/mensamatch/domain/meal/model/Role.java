@@ -1,4 +1,4 @@
-package de.haw_hamburg.mensamatch.domain.model;
+package de.haw_hamburg.mensamatch.domain.meal.model;
 
 public enum Role {
 

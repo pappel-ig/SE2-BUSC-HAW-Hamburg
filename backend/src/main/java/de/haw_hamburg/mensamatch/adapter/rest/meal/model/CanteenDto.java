@@ -1,4 +1,4 @@
-package de.haw_hamburg.mensamatch.adapter.rest.model;
+package de.haw_hamburg.mensamatch.adapter.rest.meal.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;

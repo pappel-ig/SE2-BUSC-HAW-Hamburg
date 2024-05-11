@@ -1,12 +1,11 @@
-package de.haw_hamburg.mensamatch.adapter.rest;
+package de.haw_hamburg.mensamatch.adapter.rest.meal;
 
 
-import de.haw_hamburg.mensamatch.adapter.rest.model.OpenMensaDto;
-import de.haw_hamburg.mensamatch.domain.MensaRepository;
-import de.haw_hamburg.mensamatch.domain.model.Meal;
+import de.haw_hamburg.mensamatch.adapter.rest.meal.model.OpenMensaDto;
+import de.haw_hamburg.mensamatch.domain.meal.MensaRepository;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;

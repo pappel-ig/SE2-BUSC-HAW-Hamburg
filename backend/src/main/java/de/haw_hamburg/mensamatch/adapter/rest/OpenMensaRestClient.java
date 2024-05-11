@@ -1,5 +1,6 @@
 package de.haw_hamburg.mensamatch.adapter.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,21 +19,18 @@ public class OpenMensaRestClient {
     String baseUrl;
 
     @Bean
-    public RestClient restClient(Jackson2ObjectMapperBuilder builder) {
-        return RestClient.builder()
-                .baseUrl(baseUrl)
-                .messageConverters(httpMessageConverters -> {
-                    httpMessageConverters.add(new MappingJackson2HttpMessageConverter(builder.build()));
-                    httpMessageConverters.add(new MappingJackson2XmlHttpMessageConverter(builder.createXmlMapper(true).build()));
-                })
-                .build();
-    }
-
-    @Bean
-    public Jackson2ObjectMapperBuilder objectMapper() {
-        return new Jackson2ObjectMapperBuilder()
+    public RestClient restClient() {
+        final Jackson2ObjectMapperBuilder objectMapper = new Jackson2ObjectMapperBuilder()
+                .serializationInclusion(JsonInclude.Include.NON_EMPTY)
                 .indentOutput(true)
                 .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
                 .modulesToInstall(new ParameterNamesModule());
+        return RestClient.builder()
+                .baseUrl(baseUrl)
+                .messageConverters(httpMessageConverters -> {
+                    httpMessageConverters.addLast(new MappingJackson2HttpMessageConverter(objectMapper.build()));
+                    httpMessageConverters.addLast(new MappingJackson2XmlHttpMessageConverter(objectMapper.createXmlMapper(true).build()));
+                })
+                .build();
     }
 }

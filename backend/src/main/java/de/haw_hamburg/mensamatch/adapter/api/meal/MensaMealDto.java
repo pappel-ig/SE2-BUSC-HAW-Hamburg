@@ -1,18 +1,11 @@
-package de.haw_hamburg.mensamatch.adapter.api;
+package de.haw_hamburg.mensamatch.adapter.api.meal;
 
-import de.haw_hamburg.mensamatch.domain.model.Meal;
-import de.haw_hamburg.mensamatch.domain.model.Role;
+import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.*;
-import org.javamoney.moneta.Money;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.money.MonetaryAmount;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Data
