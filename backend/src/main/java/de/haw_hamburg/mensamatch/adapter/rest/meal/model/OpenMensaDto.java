@@ -18,15 +18,17 @@ public class OpenMensaDto {
 
     public List<Meal> toMeals() {
         List<Meal> meals = new ArrayList<>();
-        for (CategoryDto category : canteen.day.category) {
-            for (MealDto meal : category.meal) {
-                meals.add(Meal.builder()
-                                .category(category.category)
-                                .name(meal.name)
-                                .day(LocalDate.parse(canteen.day.date))
-                                .price(meal.toPriceMap())
-                                .criteria(meal.getNote())
-                                .build());
+        for (DayDto day : canteen.day) {
+            for (CategoryDto category : day.category) {
+                for (MealDto meal : category.meal) {
+                    meals.add(Meal.builder()
+                            .category(category.category)
+                            .name(meal.name)
+                            .day(LocalDate.parse(day.date))
+                            .price(meal.toPriceMap())
+                            .criteria(meal.getNote())
+                            .build());
+                }
             }
         }
         return meals;
