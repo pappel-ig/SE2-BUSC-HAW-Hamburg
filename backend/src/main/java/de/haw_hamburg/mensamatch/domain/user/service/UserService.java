@@ -1,5 +1,6 @@
 package de.haw_hamburg.mensamatch.domain.user.service;
 
+import de.haw_hamburg.mensamatch.domain.criteria.CriteriaRepository;
 import de.haw_hamburg.mensamatch.domain.user.UserRepository;
 import de.haw_hamburg.mensamatch.domain.user.model.User;
 import lombok.RequiredArgsConstructor;

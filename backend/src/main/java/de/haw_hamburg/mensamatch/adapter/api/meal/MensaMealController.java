@@ -1,5 +1,6 @@
 package de.haw_hamburg.mensamatch.adapter.api.meal;
 
+import de.haw_hamburg.mensamatch.adapter.api.meal.model.MensaMealDto;
 import de.haw_hamburg.mensamatch.domain.meal.service.MealService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;

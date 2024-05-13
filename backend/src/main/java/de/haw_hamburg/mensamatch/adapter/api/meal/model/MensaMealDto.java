@@ -1,4 +1,4 @@
-package de.haw_hamburg.mensamatch.adapter.api.meal;
+package de.haw_hamburg.mensamatch.adapter.api.meal.model;
 
 import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
 import lombok.*;

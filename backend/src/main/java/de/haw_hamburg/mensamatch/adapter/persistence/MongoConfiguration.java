@@ -7,6 +7,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import de.haw_hamburg.mensamatch.adapter.persistence.criteria.model.CriteriaDao;
 import de.haw_hamburg.mensamatch.adapter.persistence.meal.model.MealDao;
 import de.haw_hamburg.mensamatch.adapter.persistence.user.model.UserDao;
 import org.bson.UuidRepresentation;
@@ -66,5 +67,11 @@ public class MongoConfiguration {
     public MongoCollection<UserDao> userCollection(MongoDatabase database) {
         database.createCollection("users");
         return database.getCollection("users", UserDao.class);
+    }
+
+    @Bean
+    public MongoCollection<CriteriaDao> criteriaCollection(MongoDatabase database) {
+        database.createCollection("criteria");
+        return database.getCollection("criteria", CriteriaDao.class);
     }
 }
