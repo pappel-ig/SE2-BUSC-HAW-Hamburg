@@ -1,17 +1,17 @@
 @font-face {
     font-family: 'Oswald-Bold';
-    src: url('assets/Oswald-Bold.ttf');
-  }
+    src: url('./assets/Oswald-Bold.ttf');
+}
 
-  @font-face {
+@font-face {
     font-family: 'RobotoSlab-Medium';
-    src: url('assets/RobotoSlab-Medium.ttf');
-  }
+    src: url('./assets/RobotoSlab-Medium.ttf');
+}
 
-  @font-face {
+@font-face {
     font-family: 'Roboto-Bold';
-    src: url('assets/Roboto-Bold.ttf');
-  }
+    src: url('./assets/Roboto-Bold.ttf');
+}
 
 
 body {
@@ -29,18 +29,33 @@ h1 {
 }
 
 h2 {
-  font-family: 'RobotoSlab-Medium', sans-serif;
-  font-size: x-large;
-  color: #F47920;
-  text-transform: uppercase;
+    font-family: 'RobotoSlab-Medium', sans-serif;
+    font-size: x-large;
+    color: #F47920;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: "RobotoSlab-Medium", sans-serif;
+    font-size: large;
+    color: black;
+    text-transform: uppercase;
+}
+
+.budget-box {
+    font-family: "RobotoSlab-Medium", sans-serif;
+    font-size: large;
+    color: black;
+    text-transform: uppercase;
+    background-color: lightgrey;
 }
 
 ul {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 li {
-  padding-bottom: 2%;
+    padding-bottom: 2%;
 }
 
 
@@ -53,14 +68,14 @@ li {
     margin-top: 5%;
     margin-bottom: 3%;
     width: 100%;
-  }
-  
-  .header img {
+}
+
+.header img {
     max-width: 100%; /* Ensure the image doesn't exceed the container width */
     max-height: 100%; /* Ensure the image doesn't exceed the container height */
-  }
+}
 
-  .box {
+.box {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,12 +85,48 @@ li {
     outline: 3px solid black;
     padding: 1%;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
-  }
+}
 
-  @media only screen and (max-width: 768px) {
-    
+.box2 {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    width: fit-content;
+    margin: 0 auto;
+    outline: 3px solid black;
+    padding: 1%;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.boxinbox2 {
+    flex: 1;
+    padding: 5%;
+}
+
+.boxinbox2 img{
+    width: 100px;
+    padding: 3%;
+}
+
+.boxinbox3{
+    font-size: small;
+}
+
+@media only screen and (max-width: 768px) {
+
     body {
         font-size: medium;
+    }
+    h1 {
+        font-size: large;
+    }
+
+    h2 {
+        font-size: large;
+    }
+
+    h3 {
+        font-size: large;
     }
 
     .header {
@@ -87,4 +138,150 @@ li {
         width: 80%;
     }
 
+    .box2 {
+        max-width: 80%;
+    }
+}@font-face {
+    font-family: 'Oswald-Bold';
+    src: url('./assets/Oswald-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'RobotoSlab-Medium';
+    src: url('./assets/RobotoSlab-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('./assets/Roboto-Bold.ttf');
+}
+
+
+body {
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: large;
+    text-transform: uppercase;
+}
+
+
+h1 {
+    font-family: 'RobotoSlab-Medium', sans-serif;
+    font-size: x-large;
+    color: black;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: 'RobotoSlab-Medium', sans-serif;
+    font-size: x-large;
+    color: #F47920;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: "RobotoSlab-Medium", sans-serif;
+    font-size: large;
+    color: black;
+    text-transform: uppercase;
+}
+
+.budget-box {
+    font-family: "RobotoSlab-Medium", sans-serif;
+    font-size: large;
+    color: black;
+    text-transform: uppercase;
+    background-color: lightgrey;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    padding-bottom: 2%;
+}
+
+
+.header {
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    height: 20%; /* Set height to fill the viewport */
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    width: 100%;
+}
+
+.header img {
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+    max-height: 100%; /* Ensure the image doesn't exceed the container height */
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 40%;
+    margin: 0 auto;
+    outline: 3px solid black;
+    padding: 1%;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.box2 {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    width: fit-content;
+    margin: 0 auto;
+    outline: 3px solid black;
+    padding: 1%;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.boxinbox2 {
+    flex: 1;
+    padding: 5%;
+}
+
+.boxinbox2 img{
+    width: 100px;
+    padding: 3%;
+}
+
+.boxinbox3{
+    font-size: small;
+}
+
+@media only screen and (max-width: 768px) {
+
+    body {
+        font-size: medium;
+    }
+    h1 {
+        font-size: large;
+    }
+
+    h2 {
+        font-size: large;
+    }
+
+    h3 {
+        font-size: large;
+    }
+
+    .header {
+        width: 50%;
+        margin-bottom: 10%;
+    }
+
+    .box {
+        width: 80%;
+    }
+
+    .box2 {
+        max-width: 80%;
+    }
 }
