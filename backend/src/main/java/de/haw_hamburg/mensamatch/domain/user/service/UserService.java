@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,10 @@ public class UserService {
     }
 
     public boolean createNewUser(User user) {
-        final User newUser = user.toBuilder().roles(List.of("USER")).build();
+        final User newUser = user.toBuilder()
+                .id(UUID.randomUUID())
+                .roles(List.of("USER"))
+                .build();
         return userRepository.saveNewUser(newUser);
     }
 }
