@@ -1,5 +1,3 @@
-import profileImage from "../assets/mensamatch_profileImg.png";
-
 const budget = 0.666; //Hier Budget
 const filters: string[] = [];
 
@@ -14,9 +12,9 @@ function Profile() {
     const activeFilters = filters.join(", ")
 
     return (
-        <>
+        <div className="box">
             <div className="boxinbox2">
-                <img src={profileImage} alt="Logo"/>
+                {/*<img src={profileImage} alt="Logo"/>*/}
             </div>
             <div className="boxinbox2">
                 <h1>Max Mustermann</h1>
@@ -31,7 +29,7 @@ function Profile() {
                     <p>{activeFilters}</p>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

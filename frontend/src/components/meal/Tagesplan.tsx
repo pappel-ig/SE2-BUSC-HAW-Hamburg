@@ -24,7 +24,7 @@ class Tagesplan extends React.Component<{}, State> {
     };
 
     componentDidMount() {
-        axios.get('/menu-plan')
+        axios.get('/mensa-meal')
             .then((response) => this.setState({items: response.data}))
     }
 

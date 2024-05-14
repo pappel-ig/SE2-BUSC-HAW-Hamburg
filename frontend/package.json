@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "devMocked": "cross-env API_ENDPOINT=http://localhost:8080 && concurrently --kill-others \"json-server --port 8080 mocked-json-server.json\" \"vite\"",
+    "devSpringBackend": "cross-env API_ENDPOINT=http://localhost:8080 && vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
