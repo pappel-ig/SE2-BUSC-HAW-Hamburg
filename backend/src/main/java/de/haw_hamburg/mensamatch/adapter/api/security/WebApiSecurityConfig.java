@@ -37,7 +37,7 @@ public class WebApiSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/user/login", "/user", "user/register").permitAll()
+                .requestMatchers("/user/login", "/user", "user/register", "/mensa-meal").permitAll()
                 .anyRequest().authenticated()
         ).build();
     }
