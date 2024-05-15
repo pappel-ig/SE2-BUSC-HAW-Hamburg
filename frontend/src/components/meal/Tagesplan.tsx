@@ -34,7 +34,7 @@ class Tagesplan extends React.Component<{}, State> {
 
     render() {
         return (
-            <div className="box">
+            <>
                 <h1>MENSA BERLINER TOR - TAGESPLAN</h1>
                 <h2>{this.getTodaysDate()}</h2>
                 {this.state.items != null && this.state.items.length === 0 && <p>No items found</p>}
@@ -43,7 +43,7 @@ class Tagesplan extends React.Component<{}, State> {
                         <Meal key={index} item={item}/>
                     ))}
                 </ul>
-            </div>
+            </>
         );
     }
 }
