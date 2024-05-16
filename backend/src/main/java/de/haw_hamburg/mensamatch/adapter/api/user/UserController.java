@@ -43,14 +43,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Void> register(@Param("username") String username, @Param("username") String password) {
-        if (userService.createNewUser(User.builder().username(username).password(passwordEncoder.encode(password)).build())) {
+    public ResponseEntity<Void> register(@RequestBody UserLoginDto login) {
+        if (userService.createNewUser(User.builder().username(login.getUsername()).password(passwordEncoder.encode(login.getPassword())).build())) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> login(@RequestBody UserLoginDto login, HttpServletRequest request, HttpServletResponse response) {
         Authentication authRequest = UsernamePasswordAuthenticationToken.unauthenticated(login.getUsername(), login.getPassword());
         Authentication authResponse = authenticationManager.authenticate(authRequest);

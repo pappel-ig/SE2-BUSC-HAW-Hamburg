@@ -1,3 +1,7 @@
+import {User} from "../Frame";
+import React from "react";
+import {Navigate} from "react-router-dom";
+
 const budget = 0.666; //Hier Budget
 const filters: string[] = [];
 
@@ -6,16 +10,25 @@ filters.push("vegan");
 filters.push("vegetarisch");
 filters.push("enthält keine laktosehaltigen Lebensmittel");
 
+type ProfileProps = {
+    user: User,
+}
 
-function Profile() {
+type ProfileState = {
+    criteria: string[]
+}
 
-    const activeFilters = filters.join(", ")
+export class Profile extends React.Component<ProfileProps, ProfileState> {
+    constructor(props: ProfileProps) {
+        super(props)
+        this.state = {
+            criteria: []
+        };
+    }
 
-    return (
-        <div className="box">
-            <div className="boxinbox2">
-                {/*<img src={profileImage} alt="Logo"/>*/}
-            </div>
+    render() {
+        if (!this.props.user.loggedIn) return (<Navigate to={"/login"}/>)
+        else return (
             <div className="boxinbox2">
                 <h1>Max Mustermann</h1>
                 <br/>
@@ -26,12 +39,9 @@ function Profile() {
                 <br/>
                 <h3>Aktive Filter</h3>
                 <div className="boxinbox3">
-                    <p>{activeFilters}</p>
+                    <p>{this.state.criteria.join(" ,")}</p>
                 </div>
             </div>
-        </div>
-    );
+        )
+    }
 }
-
-export default Profile;
-

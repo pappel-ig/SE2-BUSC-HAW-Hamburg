@@ -5,7 +5,7 @@ import {Header} from "./Header";
 import {Menu} from "./Menu";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Tagesplan from "./meal/Tagesplan";
-import Profile from "./user/Profile";
+import {Profile} from "./user/Profile";
 import {Login} from "./user/Login";
 import {Register} from "./user/Register";
 import {Empfehlung} from "./meal/Empfehlung";
@@ -21,14 +21,29 @@ type FrameState = {
 }
 
 export class Frame extends React.Component<{}, FrameState> {
-
-    state = {
-        user: { username: '', loggedIn: false }
+    constructor(props: {}) {
+        super(props)
+        this.state = {
+            user: {
+                "username": '',
+                loggedIn: false
+            }
+        }
+        this.determineLoginState = this.determineLoginState.bind(this);
+        this.loginStateChanged = this.loginStateChanged.bind(this);
     }
 
     componentDidMount() {
+        this.determineLoginState();
+    }
+
+    determineLoginState() {
         axios.get('/user')
             .then(res => this.setState({ user: res.data }))
+    }
+
+    loginStateChanged() {
+        this.determineLoginState();
     }
 
     render() {
@@ -41,10 +56,10 @@ export class Frame extends React.Component<{}, FrameState> {
                         <Routes>
                             <Route path="/" element={<StartPage/>}/>
                             <Route path="/menu" element={<Tagesplan/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
-                            <Route path="/recommend" element={<Empfehlung/>}/>
-                            <Route path="/login" element={<Login/>}/>
-                            <Route path="/register" element={<Register/>}/>
+                            <Route path="/profile" element={<Profile user={this.state.user}/>}/>
+                            <Route path="/recommend" element={<Empfehlung user={this.state.user}/>}/>
+                            <Route path="/login" element={<Login loginStateChanged={this.loginStateChanged} user={this.state.user}/>}/>
+                            <Route path="/register" element={<Register loginStateChanged={this.loginStateChanged} user={this.state.user}/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>
