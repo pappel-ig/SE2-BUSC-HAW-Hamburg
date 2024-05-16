@@ -56,10 +56,10 @@ export class Frame extends React.Component<{}, FrameState> {
                         <Routes>
                             <Route path="/" element={<StartPage/>}/>
                             <Route path="/menu" element={<Tagesplan/>}/>
-                            <Route path="/profile" element={<Profile user={this.state.user}/>}/>
+                            <Route path="/profile" element={<Profile loginStateChanged={this.loginStateChanged} user={this.state.user}/>}/>
                             <Route path="/recommend" element={<Empfehlung user={this.state.user}/>}/>
                             <Route path="/login" element={<Login loginStateChanged={this.loginStateChanged} user={this.state.user}/>}/>
-                            <Route path="/register" element={<Register loginStateChanged={this.loginStateChanged} user={this.state.user}/>}/>
+                            <Route path="/register" element={<Register user={this.state.user}/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

@@ -11,7 +11,6 @@ type FormData = {
 
 type RegisterProps = {
     user: User,
-    loginStateChanged: any
 }
 
 type RegisterState = {

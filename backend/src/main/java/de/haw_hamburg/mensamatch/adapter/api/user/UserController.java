@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,8 @@ import java.util.Optional;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
+
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -61,5 +64,11 @@ public class UserController {
             securityContextRepository.saveContext(context, request, response);
             return ResponseEntity.ok("authenticated!");
         } else return ResponseEntity.ok("not authenticated!");
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<String> logout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
+        logoutHandler.logout(request, response, authentication);
+        return ResponseEntity.ok("logout");
     }
 }
