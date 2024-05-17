@@ -1,6 +1,5 @@
 package de.haw_hamburg.mensamatch.domain.criteria.model;
 
-import de.haw_hamburg.mensamatch.domain.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class CriteriaSelection {
 
-    private final UUID userId;
-    private final Set<String> criteria;
+    private final UUID id;
+    private final Set<Criterum> criteria;
 
 }

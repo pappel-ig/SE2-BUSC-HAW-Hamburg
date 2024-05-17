@@ -2,12 +2,14 @@ package de.haw_hamburg.mensamatch.domain.criteria.service;
 
 import de.haw_hamburg.mensamatch.domain.criteria.CriteriaRepository;
 import de.haw_hamburg.mensamatch.domain.criteria.model.CriteriaSelection;
+import de.haw_hamburg.mensamatch.domain.criteria.model.Criterum;
 import de.haw_hamburg.mensamatch.domain.user.UserRepository;
 import de.haw_hamburg.mensamatch.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,18 +23,27 @@ public class CriteriaService {
         if (optionalUser.isPresent()) {
             final User user = optionalUser.get();
             final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
-            final boolean added = criteriaForUser.getCriteria().addAll(criteria);
-            return added && criteriaRepository.updateCriteria(criteriaForUser);
+            try {
+                final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
+                final boolean added = criteriaForUser.getCriteria().addAll(collect);
+                return added && criteriaRepository.updateCriteria(criteriaForUser);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
         }
         return false;
     }
 
-    public Set<String> getCriteriaForUser(String username) {
+    public Set<Criterum> getCriteriaForUser(String username) {
         final Optional<User> optionalUser = userRepository.findUser(username);
         if (optionalUser.isPresent()) {
             final User user = optionalUser.get();
             return criteriaRepository.getCriteriaForUser(user.getId()).getCriteria();
         }
         return new HashSet<>();
+    }
+
+    public Set<Criterum> getAlLCriterias() {
+        return Set.of(Criterum.values());
     }
 }

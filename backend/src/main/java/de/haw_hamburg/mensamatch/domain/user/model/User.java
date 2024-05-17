@@ -1,5 +1,6 @@
 package de.haw_hamburg.mensamatch.domain.user.model;
 
+import de.haw_hamburg.mensamatch.domain.criteria.model.CriteriaSelection;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,5 +15,6 @@ public class User {
     private final String username;
     private final String password;
     private final List<String> roles;
+    private final CriteriaSelection criteriaSelection;
 
 }

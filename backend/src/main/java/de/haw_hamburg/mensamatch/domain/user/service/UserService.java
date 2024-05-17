@@ -15,9 +15,13 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CriteriaRepository criteriaRepository;
 
     public Optional<User> findUserByName(String username) {
-        return userRepository.findUser(username);
+        return userRepository.findUser(username)
+                .map(user -> user.toBuilder()
+                        .criteriaSelection(criteriaRepository.getCriteriaForUser(user.getId()))
+                        .build());
     }
 
     public boolean createNewUser(User user) {

@@ -20,7 +20,6 @@ public class MongoCriteriaRepository implements CriteriaRepository {
 
     private final MongoCollection<CriteriaDao> collection;
 
-
     @Override
     public CriteriaSelection getCriteriaForUser(UUID userId) {
         final CriteriaDao criteriaDao = ensureCriteriaCollectionExists(userId);
@@ -29,18 +28,18 @@ public class MongoCriteriaRepository implements CriteriaRepository {
 
     @Override
     public boolean updateCriteria(CriteriaSelection criteriaSelection) {
-        ensureCriteriaCollectionExists(criteriaSelection.getUserId());
+        ensureCriteriaCollectionExists(criteriaSelection.getId());
         collection.findOneAndUpdate(
-                eq("userId", criteriaSelection.getUserId().toString()),
+                eq("_id", criteriaSelection.getId().toString()),
                 set("criteria", criteriaSelection.getCriteria()));
         return true;
     }
 
-    private CriteriaDao ensureCriteriaCollectionExists(UUID userId) {
-        final Optional<CriteriaDao> criteria = Optional.ofNullable(collection.find(eq("userId", userId.toString())).first());
+    private CriteriaDao ensureCriteriaCollectionExists(UUID id) {
+        final Optional<CriteriaDao> criteria = Optional.ofNullable(collection.find(eq("_id", id.toString())).first());
         if (criteria.isEmpty()) {
             final CriteriaDao emptyCriteria = CriteriaDao.builder()
-                    .userId(userId.toString())
+                    .id(id.toString())
                     .criteria(new HashSet<>())
                     .build();
             collection.insertOne(emptyCriteria);
