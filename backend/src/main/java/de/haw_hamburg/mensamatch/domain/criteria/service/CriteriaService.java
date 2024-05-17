@@ -34,6 +34,22 @@ public class CriteriaService {
         return false;
     }
 
+    public boolean removeCriteria(String username, Set<String> criteria) {
+        final Optional<User> optionalUser = userRepository.findUser(username);
+        if (optionalUser.isPresent()) {
+            final User user = optionalUser.get();
+            final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
+            try {
+                final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
+                final boolean removed = criteriaForUser.getCriteria().removeAll(collect);
+                return removed && criteriaRepository.updateCriteria(criteriaForUser);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public Set<Criterum> getCriteriaForUser(String username) {
         final Optional<User> optionalUser = userRepository.findUser(username);
         if (optionalUser.isPresent()) {

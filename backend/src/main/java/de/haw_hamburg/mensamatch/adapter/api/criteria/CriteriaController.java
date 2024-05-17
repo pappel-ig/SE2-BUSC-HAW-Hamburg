@@ -26,12 +26,17 @@ public class CriteriaController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Set<Criterum> getCriteriaForUser(Authentication authentication) {
-        return criteriaService.getCriteriaForUser(authentication.getName());
+    public Map<String, String> getCriteriaForUser(Authentication authentication) {
+        return criteriaService.getCriteriaForUser(authentication.getName()).stream().collect(Collectors.toMap(Enum::name, criterum -> criterum.text));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public boolean addCriteriaForUser(Authentication authentication, @RequestBody Set<String> criteriasToAdd) {
-        return criteriaService.addNewCriteria(authentication.getName(), criteriasToAdd);
+    @RequestMapping(value = "{criteriaToRemove}", method = RequestMethod.DELETE)
+    public boolean removeCriteriaForUser(Authentication authentication, @PathVariable("criteriaToRemove") String criteriaToRemove) {
+        return criteriaService.removeCriteria(authentication.getName(), Set.of(criteriaToRemove));
+    }
+
+    @RequestMapping(value = "{criteriaToAdd}", method = RequestMethod.POST)
+    public boolean addCriteriaForUser(Authentication authentication, @PathVariable("criteriaToAdd") String criteriaToAdd) {
+        return criteriaService.addNewCriteria(authentication.getName(), Set.of(criteriaToAdd));
     }
 }
