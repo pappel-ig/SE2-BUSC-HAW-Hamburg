@@ -28,7 +28,7 @@ services:
   mongo-express:
     image: mongo-express
     networks:
-      - mongo
+      - private
     restart: always
     ports:
       - 8081:8081
