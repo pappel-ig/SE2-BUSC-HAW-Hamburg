@@ -28,8 +28,8 @@ public class OpenMensaRestClient {
         return RestClient.builder()
                 .baseUrl(baseUrl)
                 .messageConverters(httpMessageConverters -> {
-                    httpMessageConverters.addLast(new MappingJackson2HttpMessageConverter(objectMapper.build()));
-                    httpMessageConverters.addLast(new MappingJackson2XmlHttpMessageConverter(objectMapper.createXmlMapper(true).build()));
+                    httpMessageConverters.add(new MappingJackson2HttpMessageConverter(objectMapper.build()));
+                    httpMessageConverters.add(new MappingJackson2XmlHttpMessageConverter(objectMapper.createXmlMapper(true).build()));
                 })
                 .build();
     }
