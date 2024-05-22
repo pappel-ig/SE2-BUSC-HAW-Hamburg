@@ -1,5 +1,7 @@
 services:
   backend:
+    ports:
+      - 8080:8080
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
@@ -16,9 +18,10 @@ services:
   mongo:
     image: mongo
     restart: always
+    volumes:
+      - './data:/data/db'
     networks:
       - private
-      - mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
@@ -37,4 +40,3 @@ services:
 networks:
   public:
   private:
-  mongo:
