@@ -3,8 +3,9 @@ services:
     ports:
       - 443:8080
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
+      MONGO_USER: ${MONGO_ROOT_USERNAME:?error}
+      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
+      MONGO_HOST: mongo
     image: ghcr.io/jonasmetzger2000/mensa-match-backend:main
     networks:
       - public
