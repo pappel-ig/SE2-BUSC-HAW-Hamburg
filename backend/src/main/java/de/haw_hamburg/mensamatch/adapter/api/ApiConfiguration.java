@@ -46,8 +46,9 @@ public class ApiConfiguration {
 
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                        FilterChain filterChain) {
+                                        FilterChain filterChain) throws ServletException, IOException {
             LOGGER.info("REQUEST DATA: " + request.getRequestURI());
+            filterChain.doFilter(request, response);
         }
     }
 }
