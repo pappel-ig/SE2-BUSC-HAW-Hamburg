@@ -5,3 +5,10 @@ spring.data.mongodb.database: ${MONGO_DB:admin}
 spring.data.mongodb.username: ${MONGO_USER:root}
 spring.data.mongodb.password: ${MONGO_PASSWORD:example}
 server.contextPath: /api
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter=DEBUG:
