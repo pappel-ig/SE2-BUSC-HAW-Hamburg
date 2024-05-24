@@ -8,14 +8,14 @@ services:
       MONGO_HOST: mongo
     image: ghcr.io/jonasmetzger2000/mensa-match-backend:main
     networks:
-      - default
+      - public
       - private
   frontend:
     ports:
       - 80:80
     image: ghcr.io/jonasmetzger2000/mensa-match-frontend:main
     networks:
-      - default
+      - public
   mongo:
     image: mongo
     restart: always
@@ -39,7 +39,5 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME:?error}:${MONGO_ROOT_PASSWORD:?error}@mongo:27017/
       ME_CONFIG_BASICAUTH: false
 networks:
-  default:
-    network_mode: bridge
-    external: true
+  public:
   private:
