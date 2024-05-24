@@ -7,29 +7,20 @@ services:
       MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
       MONGO_HOST: mongo
     image: ghcr.io/jonasmetzger2000/mensa-match-backend:main
-    networks:
-      - public
-      - private
   frontend:
     ports:
       - 80:80
     image: ghcr.io/jonasmetzger2000/mensa-match-frontend:main
-    networks:
-      - public
   mongo:
     image: mongo
     restart: always
     volumes:
       - './data:/data/db'
-    networks:
-      - private
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?error}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?error}
   mongo-express:
     image: mongo-express
-    networks:
-      - private
     restart: always
     ports:
       - 8081:8081
@@ -38,6 +29,3 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD:?error}
       ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME:?error}:${MONGO_ROOT_PASSWORD:?error}@mongo:27017/
       ME_CONFIG_BASICAUTH: false
-networks:
-  public:
-  private:
