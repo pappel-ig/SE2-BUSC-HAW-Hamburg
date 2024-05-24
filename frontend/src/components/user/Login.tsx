@@ -37,7 +37,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
     };
 
     login(event: React.FormEvent<HTMLFormElement>) {
-        const res = axios.post('/user/login', this.state.formData)
+        const res = axios.post('/api/user/login', this.state.formData)
             .then(_ => this.props.loginStateChanged())
         event.preventDefault();
     }

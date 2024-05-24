@@ -5,7 +5,6 @@ import "./main.css";
 import axios from 'axios';
 
 if (import.meta.env.DEV) axios.defaults.baseURL = 'http://localhost:8080'
-else axios.defaults.baseURL = 'http://mensa-match.web.informatik.haw-hamburg.de:443'
 
 axios.defaults.withCredentials = true;
 

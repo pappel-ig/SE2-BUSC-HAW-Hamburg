@@ -37,18 +37,18 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     logout() {
-        axios.post('user/logout')
+        axios.post('/api/user/logout')
             .then(value => this.props.loginStateChanged());
     }
 
     componentDidMount() {
-        axios.get("criteria")
+        axios.get("/api/criteria")
             .then(value => Object.keys(value.data).map((key) => ({value: key, label: value.data[key]})))
             .then(value => this.setState({
                 ...this.state,
                 selected: value
             }))
-        axios.get('criteria/all')
+        axios.get('/api/criteria/all')
             .then(value => Object.keys(value.data).map((key) => ({value: key, label: value.data[key]})))
             .then(value => this.setState({
                 ...this.state,
@@ -57,11 +57,11 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     private onSelect(_: Criteria[], selectedItem: Criteria) {
-        axios.post('criteria/' + selectedItem.value)
+        axios.post('/api/criteria/' + selectedItem.value)
     }
 
     private onRemove(_: Criteria[], removedItem: Criteria) {
-        axios.delete('criteria/' + removedItem.value)
+        axios.delete('/api/criteria/' + removedItem.value)
     }
 
     render() {

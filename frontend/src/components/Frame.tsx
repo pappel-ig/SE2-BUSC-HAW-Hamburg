@@ -38,7 +38,7 @@ export class Frame extends React.Component<{}, FrameState> {
     }
 
     determineLoginState() {
-        axios.get('/user')
+        axios.get('/api/user')
             .then(res => this.setState({ user: res.data }))
     }
 
