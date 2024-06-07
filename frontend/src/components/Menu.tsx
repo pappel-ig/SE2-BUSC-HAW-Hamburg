@@ -28,7 +28,7 @@ export class Menu extends React.Component<MenuProps, {}> {
         <div className="menubox frame-item-menu">
             <nav role="navigation">
                 <div id="menuToggle">
-                    <input type="checkbox"/>
+                    {/*<input type="checkbox"/>*/}
                     <span></span>
                     <span></span>
                     <span></span>

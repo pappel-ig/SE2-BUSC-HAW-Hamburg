@@ -42,7 +42,7 @@ export class Register extends React.Component<RegisterProps, RegisterState> {
 
     register(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        axios.post('/user/register', this.state.formData)
+        axios.post('api/user/register', this.state.formData)
             .then(value => this.setState({registered: true}));
     }
 
