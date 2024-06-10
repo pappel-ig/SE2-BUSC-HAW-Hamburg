@@ -21,6 +21,7 @@ body {
     font-size: medium;
     text-transform: uppercase;
     line-height: 1.5;
+    margin: 0;
 }
 
 h1 {
