@@ -1,6 +1,7 @@
 package de.haw_hamburg.mensamatch.adapter.persistence.criteria;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
 import de.haw_hamburg.mensamatch.adapter.persistence.criteria.model.CriteriaDao;
 import de.haw_hamburg.mensamatch.domain.criteria.CriteriaRepository;
 import de.haw_hamburg.mensamatch.domain.criteria.model.CriteriaSelection;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 
@@ -31,7 +33,9 @@ public class MongoCriteriaRepository implements CriteriaRepository {
         ensureCriteriaCollectionExists(criteriaSelection.getId());
         collection.findOneAndUpdate(
                 eq("_id", criteriaSelection.getId().toString()),
-                set("criteria", criteriaSelection.getCriteria()));
+                Updates.combine(
+                        set("include", criteriaSelection.getInclude()),
+                        set("exclude", criteriaSelection.getExclude())));
         return true;
     }
 
@@ -40,7 +44,8 @@ public class MongoCriteriaRepository implements CriteriaRepository {
         if (criteria.isEmpty()) {
             final CriteriaDao emptyCriteria = CriteriaDao.builder()
                     .id(id.toString())
-                    .criteria(new HashSet<>())
+                    .include(new HashSet<>())
+                    .exclude(new HashSet<>())
                     .build();
             collection.insertOne(emptyCriteria);
             return emptyCriteria;

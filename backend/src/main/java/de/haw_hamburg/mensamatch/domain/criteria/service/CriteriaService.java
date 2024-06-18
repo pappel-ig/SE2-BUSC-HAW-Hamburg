@@ -18,14 +18,14 @@ public class CriteriaService {
     private final UserRepository userRepository;
     private final CriteriaRepository criteriaRepository;
 
-    public boolean addNewCriteria(String username, Set<String> criteria) {
+    public boolean addNewIncludeCriteria(String username, Set<String> criteria) {
         final Optional<User> optionalUser = userRepository.findUser(username);
         if (optionalUser.isPresent()) {
             final User user = optionalUser.get();
             final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
             try {
                 final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
-                final boolean added = criteriaForUser.getCriteria().addAll(collect);
+                final boolean added = criteriaForUser.getInclude().addAll(collect);
                 return added && criteriaRepository.updateCriteria(criteriaForUser);
             } catch (IllegalArgumentException e) {
                 return false;
@@ -34,14 +34,30 @@ public class CriteriaService {
         return false;
     }
 
-    public boolean removeCriteria(String username, Set<String> criteria) {
+    public boolean addNewExcludeCriteria(String username, Set<String> criteria) {
         final Optional<User> optionalUser = userRepository.findUser(username);
         if (optionalUser.isPresent()) {
             final User user = optionalUser.get();
             final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
             try {
                 final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
-                final boolean removed = criteriaForUser.getCriteria().removeAll(collect);
+                final boolean added = criteriaForUser.getExclude().addAll(collect);
+                return added && criteriaRepository.updateCriteria(criteriaForUser);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeIncludeCriteria(String username, Set<String> criteria) {
+        final Optional<User> optionalUser = userRepository.findUser(username);
+        if (optionalUser.isPresent()) {
+            final User user = optionalUser.get();
+            final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
+            try {
+                final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
+                final boolean removed = criteriaForUser.getInclude().removeAll(collect);
                 return removed && criteriaRepository.updateCriteria(criteriaForUser);
             } catch (IllegalArgumentException e) {
                 return false;
@@ -50,16 +66,41 @@ public class CriteriaService {
         return false;
     }
 
-    public Set<Criterum> getCriteriaForUser(String username) {
+    public boolean removeExcludeCriteria(String username, Set<String> criteria) {
         final Optional<User> optionalUser = userRepository.findUser(username);
         if (optionalUser.isPresent()) {
             final User user = optionalUser.get();
-            return criteriaRepository.getCriteriaForUser(user.getId()).getCriteria();
+            final CriteriaSelection criteriaForUser = criteriaRepository.getCriteriaForUser(user.getId());
+            try {
+                final Set<Criterum> collect = criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet());
+                final boolean removed = criteriaForUser.getExclude().removeAll(collect);
+                return removed && criteriaRepository.updateCriteria(criteriaForUser);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public Set<Criterum> getIncludeCriteria(String username) {
+        final Optional<User> optionalUser = userRepository.findUser(username);
+        if (optionalUser.isPresent()) {
+            final User user = optionalUser.get();
+            return criteriaRepository.getCriteriaForUser(user.getId()).getInclude();
         }
         return new HashSet<>();
     }
 
-    public Set<Criterum> getAlLCriterias() {
+    public Set<Criterum> getExcludeCriteria(String username) {
+        final Optional<User> optionalUser = userRepository.findUser(username);
+        if (optionalUser.isPresent()) {
+            final User user = optionalUser.get();
+            return criteriaRepository.getCriteriaForUser(user.getId()).getExclude();
+        }
+        return new HashSet<>();
+    }
+
+    public Set<Criterum> availableCriterias() {
         return Set.of(Criterum.values());
     }
 }

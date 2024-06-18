@@ -4,12 +4,6 @@ import {Navigate} from "react-router-dom";
 import axios from "axios";
 import {Multiselect} from 'multiselect-react-dropdown';
 const budget = 0.666; //Hier Budget
-const filters: string[] = [];
-
-/*Testfilter*/
-filters.push("vegan");
-filters.push("vegetarisch");
-filters.push("enthält keine laktosehaltigen Lebensmittel");
 
 type ProfileProps = {
     user: User,
@@ -23,7 +17,8 @@ type Criteria = {
 
 type ProfileState = {
     criteria: Criteria[]
-    selected: Criteria[]
+    include: Criteria[]
+    exclude: Criteria[]
 }
 
 export class Profile extends React.Component<ProfileProps, ProfileState> {
@@ -31,7 +26,8 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
         super(props)
         this.state = {
             criteria: [],
-            selected: []
+            include: [],
+            exclude: []
         };
         this.logout = this.logout.bind(this);
     }
@@ -43,11 +39,14 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
 
     componentDidMount() {
         axios.get("/api/criteria")
-            .then(value => Object.keys(value.data).map((key) => ({value: key, label: value.data[key]})))
-            .then(value => this.setState({
-                ...this.state,
-                selected: value
-            }))
+            .then(value => {
+                console.log(value.data)
+                this.setState({
+                    ...this.state,
+                    include: Object.keys(value.data.include).map((key) => ({value: key, label: value.data.include[key]})),
+                    exclude: Object.keys(value.data.exclude).map((key) => ({value: key, label: value.data.exclude[key]}))
+                });
+            })
         axios.get('/api/criteria/all')
             .then(value => Object.keys(value.data).map((key) => ({value: key, label: value.data[key]})))
             .then(value => this.setState({
@@ -56,12 +55,20 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
             }))
     }
 
-    private onSelect(_: Criteria[], selectedItem: Criteria) {
-        axios.post('/api/criteria/' + selectedItem.value)
+    private onSelectInclude(_: Criteria[], selectedItem: Criteria) {
+        axios.post('/api/criteria/include/' + selectedItem.value)
     }
 
-    private onRemove(_: Criteria[], removedItem: Criteria) {
-        axios.delete('/api/criteria/' + removedItem.value)
+    private onRemoveInclude(_: Criteria[], removedItem: Criteria) {
+        axios.delete('/api/criteria/include/' + removedItem.value)
+    }
+
+    private onSelectExclude(_: Criteria[], selectedItem: Criteria) {
+        axios.post('/api/criteria/exclude/' + selectedItem.value)
+    }
+
+    private onRemoveExclude(_: Criteria[], removedItem: Criteria) {
+        axios.delete('/api/criteria/exclude/' + removedItem.value)
     }
 
     render() {
@@ -76,18 +83,25 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
                     <p>{budget}</p>
                 </div>
                 <br/>
-                <h3>Aktive Filter</h3>
+                <h3>Aktive Positiv Filter</h3>
                 <Multiselect
+                    id={"positive"}
                     options={this.state.criteria}
-                    selectedValues={this.state.selected}
-                    onSelect={this.onSelect}
-                    onRemove={this.onRemove}
+                    selectedValues={this.state.include}
+                    onSelect={this.onSelectInclude}
+                    onRemove={this.onRemoveInclude}
                     displayValue="label"
                 />
 
-                <div className="boxinbox3">
-                    {/*<p>{this.state.criteria.join(" ,")}</p>*/}
-                </div>
+                <h3>Aktive Negativ Filter</h3>
+                <Multiselect
+                    id={"negative"}
+                    options={this.state.criteria}
+                    selectedValues={this.state.exclude}
+                    onSelect={this.onSelectExclude}
+                    onRemove={this.onRemoveExclude}
+                    displayValue="label"
+                />
             </div>
         )
     }

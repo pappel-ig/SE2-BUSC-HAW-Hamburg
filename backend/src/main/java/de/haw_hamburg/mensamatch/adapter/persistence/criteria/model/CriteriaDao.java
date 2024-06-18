@@ -22,12 +22,14 @@ public class CriteriaDao {
 
     @Id
     private String id;
-    private Set<String> criteria;
+    private Set<String> include;
+    private Set<String> exclude;
 
     public CriteriaSelection toCriteriaSelection() {
         return CriteriaSelection.builder()
                 .id(UUID.fromString(id))
-                .criteria(criteria.stream().map(Criterum::valueOf).collect(Collectors.toSet()))
+                .include(include.stream().map(Criterum::valueOf).collect(Collectors.toSet()))
+                .exclude(exclude.stream().map(Criterum::valueOf).collect(Collectors.toSet()))
                 .build();
     }
 }

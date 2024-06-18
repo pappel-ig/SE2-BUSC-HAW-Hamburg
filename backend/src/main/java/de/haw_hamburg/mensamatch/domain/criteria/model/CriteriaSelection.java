@@ -11,6 +11,7 @@ import java.util.UUID;
 public class CriteriaSelection {
 
     private final UUID id;
-    private final Set<Criterum> criteria;
+    private final Set<Criterum> include;
+    private final Set<Criterum> exclude;
 
 }
