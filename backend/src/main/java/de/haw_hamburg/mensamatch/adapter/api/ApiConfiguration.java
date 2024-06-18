@@ -16,6 +16,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 @Configuration
+@EnableScheduling
 public class ApiConfiguration {
 
     @Bean
