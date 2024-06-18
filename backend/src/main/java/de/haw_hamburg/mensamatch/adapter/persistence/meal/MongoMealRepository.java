@@ -23,7 +23,7 @@ public class MongoMealRepository implements MealRepository {
 
     @Override
     public void store(Meal meal) {
-        if (!(collection.countDocuments(and(eq("category", meal.getCategory()), eq("day", meal.getDay()))) > 0)) {
+        if (!(collection.countDocuments(and(eq("name", meal.getName()), eq("day", meal.getDay()))) > 0)) {
             collection.insertOne(MealDao.from(meal));
         }
     }
