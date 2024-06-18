@@ -40,7 +40,6 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
     componentDidMount() {
         axios.get("/api/criteria")
             .then(value => {
-                console.log(value.data)
                 this.setState({
                     ...this.state,
                     include: Object.keys(value.data.include).map((key) => ({value: key, label: value.data.include[key]})),

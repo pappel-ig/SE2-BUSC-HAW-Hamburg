@@ -1,5 +1,8 @@
 package de.haw_hamburg.mensamatch.domain.criteria.model;
 
+import lombok.Getter;
+
+@Getter
 public enum Criterum {
 
     VEGAN("Vegan"),
