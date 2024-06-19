@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecommendationService {
 
-    private static final Logger log = LoggerFactory.getLogger(RecommendationService.class);
     private final UserRepository userRepository;
     private final CriteriaRepository criteriaRepository;
     private final MealRepository mealRepository;
@@ -38,20 +37,11 @@ public class RecommendationService {
         final Set<String> include = criteriaForUser.getInclude().stream().map(Criterum::getText).collect(Collectors.toSet());
         final Set<String> exclude = criteriaForUser.getExclude().stream().map(Criterum::getText).collect(Collectors.toSet());
 
-        log.info("include {}, exclude {}", include, exclude);
-
-        final List<Meal> recommendations = meals.stream()
-                .map(meal -> {
-                    log.info("criteria meal {}", meal.getCriteria());
-                    return meal;
-                })
+        return meals.stream()
                 .filter(meal ->
                         include.isEmpty() || meal.getCriteria().stream().anyMatch(include::contains))
                 .filter(meal ->
                         exclude.isEmpty() || meal.getCriteria().stream().noneMatch(exclude::contains))
                 .collect(Collectors.toList());
-        log.info("{} Recommendations for {}", recommendations.size(), username);
-        return recommendations;
     }
-
 }
