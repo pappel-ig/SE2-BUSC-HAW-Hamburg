@@ -37,8 +37,8 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
             .then(value => this.props.loginStateChanged());
     }
 
-    componentDidMount() {
-        axios.get("/api/criteria")
+    async componentDidMount() {
+        await axios.get("/api/criteria")
             .then(value => {
                 this.setState({
                     ...this.state,
@@ -46,7 +46,7 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
                     exclude: Object.keys(value.data.exclude).map((key) => ({value: key, label: value.data.exclude[key]}))
                 });
             })
-        axios.get('/api/criteria/all')
+        await axios.get('/api/criteria/all')
             .then(value => Object.keys(value.data).map((key) => ({value: key, label: value.data[key]})))
             .then(value => this.setState({
                 ...this.state,
