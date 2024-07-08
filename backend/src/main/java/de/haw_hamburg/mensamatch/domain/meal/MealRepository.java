@@ -9,5 +9,6 @@ public interface MealRepository {
 
     void store(Meal meal);
     List<Meal> getFrom(LocalDate date);
+    void deleteOlder30Days();
 
 }
