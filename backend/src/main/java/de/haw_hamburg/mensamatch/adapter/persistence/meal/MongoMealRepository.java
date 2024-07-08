@@ -2,6 +2,7 @@ package de.haw_hamburg.mensamatch.adapter.persistence.meal;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.DeleteOptions;
 import de.haw_hamburg.mensamatch.adapter.persistence.meal.model.MealDao;
 import de.haw_hamburg.mensamatch.domain.meal.MealRepository;
 import de.haw_hamburg.mensamatch.domain.meal.model.Meal;
@@ -12,8 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -36,5 +36,10 @@ public class MongoMealRepository implements MealRepository {
             meals.add(meal.toMeal());
         }
         return meals;
+    }
+
+    @Override
+    public void deleteOlder30Days() {
+        collection.deleteMany(lte("day", LocalDate.now().minusDays(30)));
     }
 }

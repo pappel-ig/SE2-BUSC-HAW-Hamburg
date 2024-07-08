@@ -31,5 +31,7 @@ public class MealFetcher {
         for (Meal meal : mensaRepository.getTodaysMeal()) {
             mealRepository.store(meal);
         }
+        log.info("Deleting old meals");
+        mealRepository.deleteOlder30Days();
     }
 }
